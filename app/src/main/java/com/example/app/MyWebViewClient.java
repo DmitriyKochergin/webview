@@ -16,10 +16,8 @@ class MyWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-        Uri uri = Uri.parse(url);
-        Log.i("--", uri.getHost() + "---" + this.hostname);
-        if (url.startsWith("file:") || uri.getHost() != null && uri.getHost().contains(this.hostname)) {
+        // Log.i("MyWebViewClient", url + "---" + this.hostname);
+        if (url.startsWith("file:") || url.contains(this.hostname)) {
             // Returning false means that you are going to load this url in the webView itself
             return false;
         }
