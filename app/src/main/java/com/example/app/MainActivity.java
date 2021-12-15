@@ -14,17 +14,19 @@ public class MainActivity extends Activity {
     @SuppressLint("SetJavaScriptEnabled")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // REMOTE RESOURCE
+        String hostname = "https://www.microsoft.com";
+        // LOCAL RESOURCE
+        // String hostname = "file:///android_asset/index.html";
+
         setContentView(R.layout.activity_main);
         mWebView = findViewById(R.id.activity_main_webview);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new MyWebViewClient());
+        mWebView.setWebViewClient(new MyWebViewClient("microsoft.com"));
 
-        // REMOTE RESOURCE
-        // mWebView.loadUrl("https://example.com");
-
-        // LOCAL RESOURCE
-        // mWebView.loadUrl("file:///android_asset/index.html");
+        mWebView.loadUrl(hostname);
     }
 
     @Override
