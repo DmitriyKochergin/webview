@@ -16,15 +16,18 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         // REMOTE RESOURCE
-        String hostname = "https://www.microsoft.com";
+        String hostname = "https://dmitriykochergin.github.io/forkids";
         // LOCAL RESOURCE
-        // String hostname = "file:///android_asset/index.html";
+//         String hostname = "file:///android_asset/index.html";
 
         setContentView(R.layout.activity_main);
         mWebView = findViewById(R.id.activity_main_webview);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         mWebView.setWebViewClient(new MyWebViewClient(hostname));
+        mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        mWebView.reload();
 
         mWebView.loadUrl(hostname);
     }
@@ -36,5 +39,15 @@ public class MainActivity extends Activity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        // reload application on app restore (user switched to another activity and then navigated back)
+        // TODO remove before production
+        mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        mWebView.reload();
     }
 }
